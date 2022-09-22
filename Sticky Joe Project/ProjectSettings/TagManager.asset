@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Slime
+  - Spike
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1731164261
+    locked: 0
+  - name: Enemy
+    uniqueID: 3187003651
+    locked: 0
+  - name: Obstacle
+    uniqueID: 347320313
+    locked: 0
+  - name: Slime
+    uniqueID: 89382113
+    locked: 0
+  - name: Player
+    uniqueID: 1727640871
     locked: 0
