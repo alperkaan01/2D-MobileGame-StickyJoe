@@ -8,6 +8,8 @@ public class SawMove : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject UpperPivot;
     [SerializeField] private GameObject LowerPivot;
+    [SerializeField] private Vector2 speedInterval;
+    [SerializeField] private float speedIncrementRate;
 
     private Transform upperTarget;
     private Transform lowerTarget;
@@ -28,7 +30,16 @@ public class SawMove : MonoBehaviour
     {
         transform.Rotate(0f,0f,-1f, Space.Self); // We rotate our saw in z axis to implement animation behavior
 
+        IncrementSpeed();
         MoveBetweenTargets();
+
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Player")) {
+            other.gameObject.SetActive(false);
+        }
     }
 
     void MoveBetweenTargets(){
@@ -42,4 +53,14 @@ public class SawMove : MonoBehaviour
         //move between the pivot points
         transform.position = Vector2.MoveTowards(transform.position, mainTarget.position, moveSpeed * Time.deltaTime);
     }
+
+    private void IncrementSpeed(){
+
+        if(moveSpeed < speedInterval.y) {
+            moveSpeed += Time.deltaTime * speedIncrementRate;
+        }
+
+    }
+
+
 }
