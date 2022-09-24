@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Slime
   - Spike
+  - Flag
   layers:
   - Default
   - TransparentFX

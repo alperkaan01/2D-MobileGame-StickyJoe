@@ -13,8 +13,18 @@ public class PlayerMove : MonoBehaviour
     private Camera mainCam;
     private Vector2 direction;
     private SpriteRenderer sr;
-
     private bool isTouched = false;
+    private int coinCount;
+
+
+    public int CoinCount { 
+        get{
+            return coinCount;
+        }
+        set{
+            coinCount += value;
+        }
+    }
 
     private void Awake() {
         mainCam = Camera.main;
@@ -48,7 +58,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Slime")) {
-            Debug.Log("slime is hit");
+            //Debug.Log("slime is hit");
             //rb.isKinematic = false;
             direction = Vector2.zero;
             rb.velocity = Vector3.zero;
@@ -65,6 +75,10 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Flag")) {
             SceneManager.LoadScene(0);
+        }else if(other.CompareTag("Coin")){
+            coinCount += 1;
+            Destroy(other.gameObject);
+            //Debug.Log("Coin amount: " + coinCount.ToString());
         }
     }
 
@@ -82,7 +96,7 @@ public class PlayerMove : MonoBehaviour
             direction = worldPosition - transform.position;
             direction.Normalize();
 
-            Debug.Log(direction.ToString());
+            //Debug.Log(direction.ToString()); Debugging
 
             isTouched = true;
 
