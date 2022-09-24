@@ -8,23 +8,15 @@ public class PlayerMove : MonoBehaviour
 {
 
     [SerializeField] private float forceMagnitude;
+    [SerializeField] private LevelComplete levelCompletion;
 
     private Rigidbody2D rb;
     private Camera mainCam;
     private Vector2 direction;
     private SpriteRenderer sr;
     private bool isTouched = false;
-    private int coinCount;
+    public static int coinCount = 0;
 
-
-    public int CoinCount { 
-        get{
-            return coinCount;
-        }
-        set{
-            coinCount += value;
-        }
-    }
 
     private void Awake() {
         mainCam = Camera.main;
@@ -44,6 +36,8 @@ public class PlayerMove : MonoBehaviour
 
         GetPosition();
 
+        RotatePlayer();
+
     }
 
     private void FixedUpdate() {
@@ -58,8 +52,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Slime")) {
-            //Debug.Log("slime is hit");
-            //rb.isKinematic = false;
+
             direction = Vector2.zero;
             rb.velocity = Vector3.zero;
             isTouched = false;
@@ -67,27 +60,21 @@ public class PlayerMove : MonoBehaviour
             sr.flipX = true;
             
             rb.freezeRotation = true;
-            //transform.Rotate(0f,0f,0f, Space.Self);
-            //Debug.Log(rb.velocity.ToString());
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.CompareTag("Flag")) {
-            SceneManager.LoadScene(0);
+        if(other.CompareTag("Flag")) { //If we reach to the flag we can understand that the level is completed
+            levelCompletion.LevelCompleted(); // Level completion flag revealed
         }else if(other.CompareTag("Coin")){
             coinCount += 1;
             Destroy(other.gameObject);
-            //Debug.Log("Coin amount: " + coinCount.ToString());
         }
     }
 
     private void GetPosition(){
         if(Touchscreen.current.primaryTouch.press.isPressed && !isTouched){
-
-                
-            //Debug.Log("Pressed");
-            //rb.isKinematic = true;
+            
             Vector2 screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             Vector3 worldPosition = mainCam.ScreenToWorldPoint(screenPosition);
 
@@ -96,16 +83,27 @@ public class PlayerMove : MonoBehaviour
             direction = worldPosition - transform.position;
             direction.Normalize();
 
-            //Debug.Log(direction.ToString()); Debugging
+            Debug.Log(direction.ToString());
 
             isTouched = true;
 
             rb.freezeRotation = false;
-            transform.Rotate(0f,0f,1f,Space.Self);
+            
+
 
 
             sr.flipX = false;
  
+        }
+    }
+
+    private void RotatePlayer(){
+        if(isTouched){
+            if(direction.x < 0){
+                transform.Rotate(new Vector3(0f, 0f, 150f) * Time.deltaTime);
+            }else {
+                transform.Rotate(new Vector3(0f, 0f, -150f) * Time.deltaTime);
+            }
         }
     }
 }
