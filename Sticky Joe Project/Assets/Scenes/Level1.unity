@@ -278,6 +278,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2729170345201651849, guid: da28c90e248737a4f88d37d4e0d40bda, type: 3}
+      propertyPath: _rotate.z
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729170345201651849, guid: da28c90e248737a4f88d37d4e0d40bda, type: 3}
       propertyPath: forceMagnitude
       value: 140
       objectReference: {fileID: 0}
@@ -1925,7 +1929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &349952298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10533,7 +10537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621044448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.690801, y: -0.24497521, z: -5.259167}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

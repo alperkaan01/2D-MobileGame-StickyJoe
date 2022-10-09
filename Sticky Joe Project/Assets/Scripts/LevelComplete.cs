@@ -35,6 +35,7 @@ public class LevelComplete : MonoBehaviour
             starArray[i].GetComponent<Image>().color = tempColor;
 
         }
+        PlayerMove.coinCount = 0;
     }
 
     public void ReplayButton(){
