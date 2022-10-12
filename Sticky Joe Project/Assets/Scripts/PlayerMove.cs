@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private float forceMagnitude;
     [SerializeField] private LevelComplete levelCompletion;
+    [SerializeField] private Animator animator;
 
     private Rigidbody2D rb;
     private Camera mainCam;
@@ -46,6 +47,7 @@ public class PlayerMove : MonoBehaviour
 
     private void MovePlayer(){
         if(direction != null && direction != Vector2.zero){
+            animator.SetFloat("IsMoving", 1f);
             rb.velocity = direction * forceMagnitude * Time.deltaTime;
         }
     }
@@ -56,6 +58,8 @@ public class PlayerMove : MonoBehaviour
             direction = Vector2.zero;
             rb.velocity = Vector3.zero;
             isTouched = false;
+
+            animator.SetFloat("IsMoving", 0f);
 
             sr.flipX = true;
             
@@ -82,6 +86,8 @@ public class PlayerMove : MonoBehaviour
             
             direction = worldPosition - transform.position;
             direction.Normalize();
+
+
 
             Debug.Log(direction.ToString());
 
